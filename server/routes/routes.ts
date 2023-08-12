@@ -27,4 +27,31 @@ router.get('/getOne', async (request: express.Request, response: express.Respons
   }
 })
 
+// Get one by id method
+router.get('/getOne/:id', async (request: express.Request, response: express.Response) => {
+  try {
+    const { params: { id } } = request
+    const tempData = await ExerciseModel.findById(id)
+    response.status(200).json(tempData)
+    return
+  } catch (error) {
+    response.status(500).json({ message: error })
+    return
+  }
+})
+
+// Posting a single row
+router.post('/post', async (request: express.Request, response: express.Response) => {
+  try {
+    const { body } = request
+    const newItem = new ExerciseModel({...body})
+    const savedData = await newItem.save()
+    response.status(200).json(savedData)
+    return
+  } catch(error) {
+    response.status(500).json({ message: error })
+    return
+  }
+})
+
 export default router

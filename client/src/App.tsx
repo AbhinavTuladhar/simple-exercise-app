@@ -16,7 +16,6 @@ const App = () => {
     try {
       const response = await axios.get('http://localhost:5000/api/getOne');
       const data = response.data;
-      console.log(data)
       setMessage(data);
       setIsLoading(false);
     } catch (error) {
