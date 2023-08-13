@@ -10,7 +10,7 @@ interface ExerciseProps {
 }
 
 const Exercise: FunctionComponent<ExerciseProps> = ({ userName, description, duration, date, lastFlag }) => {
-  const data = [userName, description, duration, String(date)]
+  const data = [userName, description, duration, String(date).split('T')[0]]
   return (
     <div className='table-row w-full'>
       {data.map((item, index) => (

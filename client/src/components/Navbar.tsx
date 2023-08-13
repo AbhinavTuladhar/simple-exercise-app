@@ -7,9 +7,9 @@ const navItems = [
     link: '/'
   },
   {
-    text: 'Exercise List',
+    text: 'Add exercise',
     link: '/create'
-  }
+  },
 ]
 
 const Navbar: FunctionComponent = () => {
