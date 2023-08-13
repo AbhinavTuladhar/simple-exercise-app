@@ -8,7 +8,7 @@ const navItems = [
   },
   {
     text: 'Exercise List',
-    link: '/exercises'
+    link: '/create'
   }
 ]
 

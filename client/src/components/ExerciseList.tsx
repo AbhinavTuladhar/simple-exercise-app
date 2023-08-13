@@ -5,7 +5,7 @@ interface ExerciseProps {
   userName: string,
   description: string,
   duration: number | string,
-  date: Date | string,
+  date: Date,
   lastFlag: boolean
 }
 
@@ -14,7 +14,7 @@ const Exercise: FunctionComponent<ExerciseProps> = ({ userName, description, dur
   return (
     <div className='table-row w-full'>
       {data.map((item, index) => (
-        <div className={`py-4 px-2 table-cell border-t-[1px] border-white ${lastFlag && 'border-b-[1px]'}`}>
+        <div className={`py-4 px-2 table-cell border-t-[1px] border-white ${lastFlag && 'border-b-[1px]'}`} key={index}>
           { item }
         </div>
       ))}

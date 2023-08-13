@@ -17,8 +17,8 @@ const App = () => {
     <div className='flex flex-col justify-between bg-slate-900 text-white min-h-screen'>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Test />} />
-        <Route path='/exercises' element={<ExerciseList />} />
+        <Route path='/create' element={<Test />} />
+        <Route path='/' element={<ExerciseList />} />
       </Routes>
       <Footer />
     </div>
