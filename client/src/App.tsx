@@ -1,51 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import ExerciseList from './components/ExerciseList'
 
-interface MessageType {
-  userName: string,
-  description: string,
-  duration: number,
-  date: Date
+const Test = () => {
+  return (
+    <div>
+      Test
+    </div>
+  )
 }
 
 const App = () => {
-  const [message, setMessage] = useState<MessageType | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/getOne');
-      const data = response.data;
-      setMessage(data);
-      setIsLoading(false);
-    } catch (error) {
-      setMessage(null);
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
-    <div className='py-4 px-16 flex flex-col justify-between bg-slate-900 text-white min-h-screen'>
-      <p> Header </p>
-      <div>
-        {isLoading ? (
-          'Loading...'
-        ) : message ? (
-          <>
-            <p> { message.userName } </p>
-            <p> { message.description } </p>
-            <p> { message.duration } </p>
-            <p> { String(message.date) } </p>
-          </>
-        ) : (
-          'Error fetching data.'
-        )}
-      </div>
-      <p> Footer </p>
+    <div className='flex flex-col justify-between bg-slate-900 text-white min-h-screen'>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Test />} />
+        <Route path='/exercises' element={<ExerciseList />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
