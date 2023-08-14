@@ -7,6 +7,7 @@ const router = express.Router()
 router.get('/getAll', async (request: express.Request, response: express.Response) => {
   try {
     const tempData = await ExerciseModel.find()
+    console.log(tempData)
     response.status(200).json(tempData)
     return
   } catch (error) {

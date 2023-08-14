@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ExerciseList from './components/ExerciseList'
 import CreateExercise from './components/CreateExercise'
+import UpdateExercise from './components/UpdateExercise'
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<ExerciseList />} />
         <Route path='/create' element={<CreateExercise />} />
+        <Route path='/update/:id' element={<UpdateExercise />} />
       </Routes>
       <Footer />
     </div>
