@@ -55,4 +55,23 @@ router.post('/post', async (request: express.Request, response: express.Response
   }
 })
 
+// Deleting a single row
+router.delete('/delete/:id', async (request: express.Request, response: express.Response) => {
+  try {
+    const { params: { id } } = request
+    const itemToDelete = await ExerciseModel.findByIdAndDelete(id)
+
+    if (!itemToDelete) {
+      response.status(404).json({ message: `Unable to delete exercise with id: $id`})
+      return
+    }
+    
+    response.status(200).json(itemToDelete)
+    return
+  } catch(error) {
+    response.status(500).json({ message: error })
+    return
+  }
+})
+
 export default router

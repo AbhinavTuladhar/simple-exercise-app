@@ -6,7 +6,7 @@ interface ExerciseProps {
   userName: string,
   description: string,
   duration: number | string,
-  date: string,
+  date: Date | any,
   lastFlag?: boolean,
   _id?: string
 }
@@ -17,14 +17,12 @@ const UpdateExercise = () => {
     userName: '', 
     description: '', 
     duration: 0, 
-    date: new Date().toISOString().split('T')[0]
+    date: new Date()
   })
   
   // Query the api in order to fill up the initial form data.
   const url = `http://localhost:5000/api/getOne/${id}`
   const { data } = useFetch<ExerciseProps>(url)
-
-  console.log(data)
 
   useEffect(() => {
     if (data !== null) {
@@ -37,11 +35,11 @@ const UpdateExercise = () => {
   }
 
   const updateData = (event: ChangeEvent<HTMLInputElement>) => {
-    const { target: { value, name } } = event
+    const { target: { value, name } } = event;
     setFormData(prevState => ({
       ...prevState,
-      [name]: name === 'duration' ? Number(value) : value
-    }))
+      [name]: name === 'duration' ? Number(value) : name === 'date' ? new Date(value) : value
+    }));
   }
 
   return (
@@ -58,7 +56,7 @@ const UpdateExercise = () => {
         <input type='number' name='duration' className='text-black p-2 w-full' placeholder='Enter the duration' value={formData.duration} onChange={updateData} />
         <label> Date </label>
         <input type='date' name='date' className='text-black p-2 w-full' placeholder='Enter the date' value={formData.date} onChange={updateData} />
-        <button type='submit' className='bg-blue-400 px-4 py-3 w-fit rounded-md'> Add </button>
+        <button type='submit' className='bg-blue-400 px-4 py-3 w-fit rounded-md'> Update </button>
       </form>
     </div>
   )

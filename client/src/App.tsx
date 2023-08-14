@@ -8,7 +8,7 @@ import UpdateExercise from './components/UpdateExercise'
 
 const App = () => {
   return (
-    <div className='flex flex-col justify-between bg-slate-900 text-white min-h-screen'>
+    <div className='flex flex-col justify-between gap-y-6 bg-slate-900 text-white min-h-screen'>
       <Navbar />
       <Routes>
         <Route path='/' element={<ExerciseList />} />

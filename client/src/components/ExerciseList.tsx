@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import useFetch from '../utils/useFetch'
+import axios from 'axios'
 
 interface ExerciseProps {
   userName: string,
@@ -8,15 +9,16 @@ interface ExerciseProps {
   duration: number | string,
   date: Date,
   lastFlag?: boolean,
-  _id?: string
+  _id: string,
+  deleteExercise(id: string): void
 }
 
-const Exercise: FunctionComponent<ExerciseProps> = ({ userName, description, duration, date, lastFlag, _id }) => {
+const Exercise: FunctionComponent<ExerciseProps> = ({ userName, description, duration, date, lastFlag, _id, deleteExercise }) => {
   const actions = (
     <span>
       <Link className='font-bold text-blue-500 hover:text-red-500 hover:underline duration-300' to={`/update/${_id}`}> edit </Link>
       |
-      <Link className='font-bold text-blue-500 hover:text-red-500 hover:underline duration-300' to={`/delete/${_id}`}> delete </Link>
+      <Link className='font-bold text-blue-500 hover:text-red-500 hover:underline duration-300' to='/' onClick={() => deleteExercise(_id)}> delete </Link>
     </span>
   )
   const data = [userName, description, duration, String(date).split('T')[0], actions]
@@ -33,7 +35,13 @@ const Exercise: FunctionComponent<ExerciseProps> = ({ userName, description, dur
 
 const ExerciseList = () => {
   const url: string = 'http://localhost:5000/api/getAll'
-  const { isLoading, data, error } = useFetch<ExerciseProps[]>(url)
+  const { isLoading, data, error, refetch } = useFetch<ExerciseProps[]>(url)
+
+  // Deleting the post
+  const deleteExercise = async (id: string) => {
+    await axios.delete(`http://localhost:5000/api/delete/${id}`)
+    refetch()
+  }
 
   const tableHeaders = ['User name', 'Description', 'Duration', 'Date', 'Actions']
 
@@ -52,7 +60,7 @@ const ExerciseList = () => {
                   </div>
                 ))}
               </div>
-              {data.map((item, index) => (<Exercise {...item} lastFlag={index === data.length - 1} />))}
+              {data.map((item, index) => (<Exercise {...item} lastFlag={index === data.length - 1} deleteExercise={() => deleteExercise(item._id)} />))}
             </div>
           </div>
         ) : (

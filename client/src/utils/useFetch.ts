@@ -22,7 +22,11 @@ const useFetch = <T>(url: string) => {
     fetchData(url)
   }, [url])
 
-  return { data, isLoading, error }
+  const refetch = () => {
+    fetchData(url);
+  };
+
+  return { data, isLoading, error, refetch }
 }
 
 export default useFetch
